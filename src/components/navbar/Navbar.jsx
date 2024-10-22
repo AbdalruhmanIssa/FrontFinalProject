@@ -3,6 +3,7 @@ import { Link,useNavigate } from 'react-router-dom'
 import { UserContext } from "../context/user"
 import styles from './nav.module.css'
 import  './nav.css'
+import logo from '../../assets/logo.png'
 export default function Navbar() {
   const {isLogin,userData,setIsLogin,setUserData}=useContext(UserContext);
 
@@ -18,7 +19,7 @@ export default function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg shadow  bg-white fixed-top pt-3  ">
   <div className="container mb-3">
-    <img src="../../src/assets/logo.png" alt="..." className={styles.img} />
+    <img src={logo} alt="..." className={styles.img} />
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon" />
     </button>
