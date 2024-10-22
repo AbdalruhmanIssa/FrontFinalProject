@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&display=swap');
+
+.img1{
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.5)
+        ),url('./slideshow1_tee.jpg');
+        background-size:contain;
+      
+            background-position:bottom;
+}
+.img2{
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.5)
+        ),url('./slideshow2_tee.jpg');
+        background-size:contain;
+      
+            background-position:bottom;
+}
+.img2{
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.5)
+        ),url('./slideshow2_tee.jpg');
+        background-size:contain;
+      
+            background-position:bottom;
+}
+.img3{
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.5)
+        ),url('./slideshow3_tee.jpg');
+        background-size:contain;
+            background-position:bottom;
+}
+
+.header-display {
+    font-family: "Caprasimo", serif;
+  }
+  .carousel-box h1{
+    font-size: 100px;
+    text-transform: uppercase;
+  }
+  .carousel-box p{
+    font-size: 70px;
+    
+  }
+  .link{
+    text-transform: uppercase;
+    
+  }
