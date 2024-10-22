@@ -18,7 +18,7 @@ export default function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg shadow  bg-white fixed-top pt-3  ">
   <div className="container mb-3">
-    <img src="src/assets/logo.png" alt="..." className={styles.img} />
+    <img src="../../src/assets/logo.png" alt="..." className={styles.img} />
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon" />
     </button>
