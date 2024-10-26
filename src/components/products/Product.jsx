@@ -71,21 +71,24 @@ const addToCart = async () => {
         });
       navigate("/");
     }
+    else{
+      toast.error(error.response.data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Slide,
+        });
+    }
     console.log(data); // Logging the response from the server
   } catch (error) {
     setLoader(false);
-
-    toast.error(error.response.data.message, {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-      transition: Slide,
-      });
+setError("Error")
+  
   }
 };
 
