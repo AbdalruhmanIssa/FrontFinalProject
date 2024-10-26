@@ -2,8 +2,9 @@ import Loader from '../loader/Loader';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Header from '../header/Header';
-
+import './cart.css'
 import { Link } from 'react-router-dom';
+import Order from '../order/Order';
 
 export default function Cart() {
     
@@ -11,7 +12,7 @@ export default function Cart() {
       const [loader,setLoader]=useState(true);
       const [error,setError]=useState(null);  
       const [updating, setUpdating] = useState(false);
-      let num=1; 
+let x=0;
       const getCart  = async ()=>{
 
           try{
@@ -25,12 +26,10 @@ export default function Cart() {
   setLoader(false);
   setError(null);
   console.log(data);
-  
-
-
+  x+=increase();
   }
   catch(err){
-      setError(error.response.data.message);
+      setError("roor");
       setLoader(false);
       }
   finally{
@@ -132,7 +131,9 @@ const increaseQuantity = async (itemId) => {
     }
 };
 
-
+const increase=()=>{
+return 5;
+}
   
       useEffect(()=>{
           getCart();
@@ -140,68 +141,18 @@ const increaseQuantity = async (itemId) => {
   
   ,[])
 
-  const addToCart = async () => {
-    const token = localStorage.getItem('userToken'); // Retrieving token from localStorage
-    setLoader(true);
-    try {
-      const { data } = await axios.post(
-        'https://ecommerce-node4.onrender.com/order'
-        
-        , // API endpoint for adding to the cart
-        {
-          productId: productId, // Assuming productId is defined elsewhere in the code
-        },
-        {
-          headers: {
-            Authorization: `Tariq__${token}`, // Using the Bearer token for authorization
-          },
-        }
-  
-      );
-      if(data.message=='success'){
-      setLoader(false);
-        toast.success('It!', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-          transition: Slide,
-          });
-        navigate("/");
-      }
-      console.log(data); // Logging the response from the server
-    } catch (error) {
-      setLoader(false);
-  
-      toast.error(error.response.data.message, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Slide,
-        });
-    }
-  };
   
     
   return (
 
-<section>
+<section className=''>
     {loader?<Loader />:null}
 {error?<div className='vh-100 d-flex justify-content-center align-items-center'>{error}</div>:null}
 <Header title="Shoping Cart" />
-<div className='vh-100 container'>
+<div className='vh-100 container  d-flex flex-wrap'>
 {cart.length === 0 ? (
                     // Show this message if the cart is empty
-                    <div className="text-center">
+                    <div className="text-center d-flex flex-column gap-3 align-items-center col-md-12">
                         <h3>Your cart is currently empty</h3>
                         <p>
                             Looks like you haven't added any items to your cart yet.
@@ -211,10 +162,11 @@ const increaseQuantity = async (itemId) => {
                         </Link>
                     </div>
                 ) : null}
-<div className="card mb-3 border-0">
+                
+<div className="card mb-3 border-0 col-md-8">
 {cart.map( item =>
  
-  <div className="row g-0 ">
+  <div className="row g-0 border-bottom">
     <div className="col-md-4">
       <img src={item.details.mainImage.secure_url} className="img-fluid rounded-start" alt="..." />
     </div>
@@ -241,12 +193,15 @@ const increaseQuantity = async (itemId) => {
       </div>
     </div>
   </div>
-    )}
+      )}
+   
 </div>
+{cart.length>=1?(<div className="col-md-4">
+        <Order />
+      </div>):null
+      }
 
-<div className="bton d-flex justify-content-center align-items-center mt-5">
-<button className="btn btn-dark">Proced to cheacout</button>
-</div>
+
 </div>
 
 </section>

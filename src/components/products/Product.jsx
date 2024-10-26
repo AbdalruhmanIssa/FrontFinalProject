@@ -13,7 +13,7 @@ export default function Product() {
     const [loader,setLoader]=useState(true);
     const [error,setError]=useState(null);
     const {productId}=useParams();
-
+const address=null;
     const getProduct  = async ()=>{
         try{
 const {data}=await axios.get(`https://ecommerce-node4.onrender.com/products/${productId}`);
@@ -69,25 +69,22 @@ const addToCart = async () => {
         theme: "colored",
         transition: Slide,
         });
-      navigate("/");
     }
-    else{
-      toast.error(error.response.data.message, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Slide,
-        });
-    }
+    
     console.log(data); // Logging the response from the server
   } catch (error) {
     setLoader(false);
-setError("Error")
+    toast.error("You Must Login or its already on ur cart !", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Slide,
+      });
   
   }
 };
@@ -153,7 +150,6 @@ if(product.finalPrice==product.price){
           <h5  className="dis">{product.discount}% off</h5>
             </div>
             <Choose />
-    <Counter />
     <button className="btn btn-primary " onClick={addToCart}>Add to Cart</button>
 
       

@@ -54,7 +54,7 @@ if(data.message=='success'){
 
 catch(error){
  
-  toast.error(error.response.data.message, {
+  toast.error("something is wrong", {
     position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,

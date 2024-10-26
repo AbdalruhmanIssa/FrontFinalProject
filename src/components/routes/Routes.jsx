@@ -14,6 +14,7 @@ import ProductDetails from "../products/ProductDetails";
 import Counter from "../counter/Counter";
 import Choose from '../choose/Choose'
 import Cart from "../Carts/Cart";
+import Order from "../order/Order";
 const router = createBrowserRouter([
     {
       path: "/",
@@ -62,6 +63,9 @@ const router = createBrowserRouter([
             <ProtectedRouter>            <Cart />
             </ProtectedRouter>
 
+          }, {
+            path:"/order",
+            element:<Order />
           },
       ],
     },

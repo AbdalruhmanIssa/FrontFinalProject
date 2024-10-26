@@ -1,0 +1,4 @@
+@import url('../../App.css');
+.fonty{
+    font-family: var(--mainfont);
+}
