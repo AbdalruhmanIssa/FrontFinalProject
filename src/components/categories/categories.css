@@ -1,0 +1,31 @@
+@import url('../../App.css');
+.cat{
+    text-transform: capitalize;
+    font-family: var(--mainfont);
+    color: black;
+font-weight: 700px;
+}
+.swiper-button-prev,.swiper-button-next{
+    color: white ;
+    height: 45px;
+    width: 45px;
+    top: 50%;
+    background-color: rebeccapurple;
+    border-radius: 50%;
+
+}
+.swiper-pagination-bullet-active{
+ 
+    background: blueviolet;
+}
+.swiper-pagination-bullet{
+    background: blueviolet;
+
+}
+.category:hover{
+    transform:scale(1.1);
+    transition: 0.3s;
+}
+.category{
+    transition: 0.3s;
+}

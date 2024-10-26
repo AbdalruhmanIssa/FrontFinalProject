@@ -17,7 +17,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="navbar navbar-expand-lg shadow  bg-white fixed-top pt-3  ">
+    <nav className="navbar navbar-expand-lg shadow  bg-white fixed-top pt-3 ">
   <div className="container mb-3">
     <img src={logo} alt="..." className={styles.img} />
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,6 +42,9 @@ export default function Navbar() {
           <Link className="nav-link"to={'/products'}>Products</Link>
         </li>
         <li className="nav-item">
+          <Link className="nav-link"to={'/cart'}><i class="bi bi-bag"></i></Link>
+        </li>
+        <li className="nav-item">
           <a className="nav-link" onClick={handelLogout}>logout</a>
         </li>
         
@@ -49,6 +52,18 @@ export default function Navbar() {
         
         :
         <>
+        <li className="nav-item ">
+          <a className="nav-link active"  aria-current="">Welcome <span className={styles.span}>{userData.userName}</span></a>
+        </li>
+        <li className="nav-item ">
+          <Link className="nav-link "  aria-current="page"to={'/'}>Home</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link"to={'categories'}>Category</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link"to={'/products'}>Products</Link>
+        </li>
       <li className="nav-item">
           <Link className="nav-link " to={'/login'}>Login</Link>
         </li>

@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+.dis{
+    width: 100px;
+    border-radius: 50%;
+    background-color: orangered;
+height: 25px;
+color: white;
+}
+
+.real{
+font-weight: bolder;
+}
+.bigger{
+    transition-duration: .3s;
+    
+    }
+.bigger:hover{
+transform: scale(1.1);
+transition-duration: .3s;
+}
+.card-img-top:hover{
+    transform: scale(1.1);
+transition-duration: .3s;
+}
+.card-img-top{
+   
+transition-duration: .3s;
+}

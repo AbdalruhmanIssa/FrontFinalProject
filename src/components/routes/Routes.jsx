@@ -7,6 +7,13 @@
 import React from 'react'
 import Categories from "../categories/Categories"
 import Products from "../products/Products";
+import CategoryDetails from "../CategoryDetails/CategoryDetails";
+import Product from "../products/Product";
+import ProductsDisplay from "../products/ProductsDisplay";
+import ProductDetails from "../products/ProductDetails";
+import Counter from "../counter/Counter";
+import Choose from '../choose/Choose'
+import Cart from "../Carts/Cart";
 const router = createBrowserRouter([
     {
       path: "/",
@@ -14,10 +21,8 @@ const router = createBrowserRouter([
       children: [
         {
           path: "/",
-          element: 
-          <ProtectedRouter>
-          <Home />
-          </ProtectedRouter>
+          element: <Home />
+          
         },
         {
           path: "/login",
@@ -34,7 +39,30 @@ const router = createBrowserRouter([
         {
             path: "/products",
             element: <Products />,
-          }
+          },
+          {
+            path:"/categorydetails/:categoryId",
+            element:<CategoryDetails />
+          },
+          {
+            path:"/product/:productId",
+            element:<Product />
+          },
+          {
+            path:"/counter",
+            element:<Counter />
+          },
+          {
+            path:"/choose",
+            element:<Choose />
+          },
+          {
+            path:"/cart",
+            element:
+            <ProtectedRouter>            <Cart />
+            </ProtectedRouter>
+
+          },
       ],
     },
   ]);

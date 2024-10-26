@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Caprasimo&display=swap');
+@import url('../../App.css');
 
 .img1{
     background-image: linear-gradient(
         rgba(0, 0, 0, 0.5),
         rgba(0, 0, 0, 0.5)
         ),url('./slideshow1_tee.jpg');
-        background-size:contain;
-      
+        background-size:cover;
+        background-repeat: no-repeat;
             background-position:bottom;
 }
 .img2{
@@ -14,30 +14,22 @@
         rgba(0, 0, 0, 0.5),
         rgba(0, 0, 0, 0.5)
         ),url('./slideshow2_tee.jpg');
-        background-size:contain;
+        background-size:cover;
       
             background-position:bottom;
 }
-.img2{
-    background-image: linear-gradient(
-        rgba(0, 0, 0, 0.5),
-        rgba(0, 0, 0, 0.5)
-        ),url('./slideshow2_tee.jpg');
-        background-size:contain;
-      
-            background-position:bottom;
-}
+
 .img3{
     background-image: linear-gradient(
         rgba(0, 0, 0, 0.5),
         rgba(0, 0, 0, 0.5)
         ),url('./slideshow3_tee.jpg');
-        background-size:contain;
+        background-size:cover;
             background-position:bottom;
 }
 
 .header-display {
-    font-family: "Caprasimo", serif;
+    font-family:var(--mainfont);
   }
   .carousel-box h1{
     font-size: 100px;
@@ -51,3 +43,10 @@
     text-transform: uppercase;
     
   }
+  .ground{
+    background-image: 
+        url('./headerback.png');
+            height: 300px;
+    font-family:var(--mainfont);
+
+}

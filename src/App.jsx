@@ -1,7 +1,4 @@
 import {
-  Routes,
-  Route,
-  createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
 import UserContextProvider from "./components/context/user";
