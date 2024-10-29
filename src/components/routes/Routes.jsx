@@ -15,6 +15,8 @@ import Counter from "../counter/Counter";
 import Choose from '../choose/Choose'
 import Cart from "../Carts/Cart";
 import Order from "../order/Order";
+import Useful from "../order/useful";
+import ProductsHome from "../products/ProductsHome";
 const router = createBrowserRouter([
     {
       path: "/",
@@ -66,6 +68,13 @@ const router = createBrowserRouter([
           }, {
             path:"/order",
             element:<Order />
+          },{
+            path:"/useful",
+           element:<Useful />
+          },
+          {
+            path:"/productshome",
+           element:<ProductsHome />
           },
       ],
     },

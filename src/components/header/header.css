@@ -50,3 +50,21 @@
     font-family:var(--mainfont);
 
 }
+@media (max-width:600px) {
+  .carousel-box h1{
+    font-size: 70px;
+    text-transform: uppercase;
+  }
+}
+@media (max-width:400px) {
+  .carousel-box h1, .carousel-box p{
+    font-size: 40px;
+    text-transform: uppercase;
+  }
+}
+
+@media (max-width:500px) {
+ .carousel-control-prev,.carousel-control-next{
+display: none;
+  }
+}

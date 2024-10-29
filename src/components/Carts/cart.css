@@ -1,4 +1,16 @@
 @import url('../../App.css');
-.fonty{
-    font-family: var(--mainfont);
+.fonte{
+    
+    font-size: 15px;
+}
+.bold{
+    font-weight: bold;
+}
+.cus{
+    width: 150px !important;
+}
+.font{
+    font-size: 20px ;
+    font-weight: 700 !important;
+    
 }

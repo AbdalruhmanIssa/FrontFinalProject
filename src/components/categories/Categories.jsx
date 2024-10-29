@@ -10,7 +10,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import './categories.css'
-import CategoryDetails from '../CategoryDetails/CategoryDetails';
+
 
 export default function Categories() {
     const [categories,setCategories]=useState([]);
@@ -62,7 +62,7 @@ return(<Loader />)
   <div >
    <SwiperSlide  >
     
-      <div className="container d-flex justify-content-center align-items-center mt-5">
+      <div className="container d-flex justify-content-center align-items-center mt-5 mb-5">
 <Link key={category._id} to={`/categoryDetails/${category._id}`} className=''>
         
 

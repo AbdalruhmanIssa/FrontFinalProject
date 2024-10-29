@@ -5,17 +5,17 @@ import { toast,Slide } from 'react-toastify';
 import {  useState } from "react"
 import Loader from '../loader/Loader';
 import   './order.css'
-export default function Order() {
+export default function Order({bla}) {
     const [loader,setLoader]=useState(false);
     const [error,setError]=useState(null);  
     const schema =yup.object({
         address: yup.string().required().min(5),
-        number: yup.number().required().min(10),
+        phone: yup.number().required().min(10),
       });
     const formik = useFormik({
         initialValues:{
             address:'',
-            number:''
+            phone:''
         },
         onSubmit:OrderPlace,
       validationSchema:schema
@@ -24,7 +24,8 @@ export default function Order() {
     async function OrderPlace(){
         setLoader(true);
         try{
-            const token = localStorage.getItem('userToken');
+        const token = localStorage.getItem('userToken');
+
     const {data} =await axios.post(`https://ecommerce-node4.onrender.com/order/`,formik.values,
         {
             headers: {
@@ -87,15 +88,26 @@ export default function Order() {
     {formik.touched.address && formik.errors.address ? <div className="alert alert-danger">{formik.errors.address}</div>:null}
   </div>
   <div className="mb-3 w-25">
-    <label htmlFor="number" className="form-label">Phone number</label>
-    <input type="tel" className="form-control" id="number" placeholder="" 
+    <label htmlFor="phone" className="form-label">Phone Number</label>
+    <input type="tel" className="form-control" id="phone" placeholder="" 
      onChange={formik.handleChange}
-     name="number"
-     value={formik.number}
+     name="phone"
+     value={formik.phone}
      onBlur={formik.handleBlur}/>
-    {formik.touched.number && formik.errors.number ? <div className="alert alert-danger">{formik.errors.number}</div>:null}
+    {formik.touched.phone && formik.errors.phone ? <div className="alert alert-danger">{formik.errors.phone}</div>:null}
   </div>
-  <button type="submit" className="btn btn-warning" >Order</button>
+  
+  <h5 className=" ">Payment Method</h5> 
+  <div className="mb-3 w-25 d-flex flex-column gap-3">
+  <input type="radio" className="btn-check" name="options-base" id="option5" autoComplete="off" defaultChecked />
+  <label className="btn " htmlFor="option5"><i class="bi bi-credit-card-fill"></i>  Visa</label>
+  <input type="radio" className="btn-check" name="options-base" id="option6" autoComplete="off" />
+  <label className="btn" htmlFor="option6"><i class="bi bi-apple"></i> Apple Pay</label>
+  <input type="radio" className="btn-check" name="options-base" id="option8" autoComplete="off" />
+  <label className="btn" htmlFor="option8"><i class="bi bi-cash"></i> Cash</label>
+</div>
+<a className="text-dark "> Total Price: <span className="text-success w-25">{bla}$</span></a>
+  <button type="submit" className="btn btn-warning " >Cheackout</button>
 
 
 </form>

@@ -29,3 +29,8 @@ font-weight: 700px;
 .category{
     transition: 0.3s;
 }
+@media (max-width:990px) {
+    .swiper-button-prev,.swiper-button-next{
+        display: none;
+    }
+}

@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('../../App.css');
+
 .dis{
     width: 100px;
     border-radius: 50%;
@@ -25,4 +27,45 @@ transition-duration: .3s;
 .card-img-top{
    
 transition-duration: .3s;
+}
+.pros{
+    text-transform: capitalize;
+    font-family: var(--mainfont);
+    color: black;
+font-weight: 700px;
+}
+.swiper-button-prev,.swiper-button-next{
+    color: white ;
+    height: 45px;
+    width: 45px;
+    top: 50%;
+    background-color: rebeccapurple;
+    border-radius: 50%;
+
+}
+.swiper-pagination-bullet-active{
+ 
+    background: blueviolet;
+}
+.swiper-pagination-bullet{
+    background: blueviolet;
+
+}
+.pro {
+    transition: 0.3s;
+}
+.pro:hover{
+    transform:scale(1.1);
+    transition: 0.3s;
+}
+.h5 {
+    color: blueviolet !important;
+}
+.span{
+    color:coral;
+}
+@media (max-width:990px) {
+    .swiper-button-prev,.swiper-button-next{
+        display: none;
+    }
 }

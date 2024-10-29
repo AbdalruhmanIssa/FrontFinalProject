@@ -2,3 +2,6 @@
 :root{
     --mainfont:"Caprasimo", serif;
 }
+a{
+    text-decoration: none;
+}

@@ -9,6 +9,7 @@ import Order from '../order/Order';
 export default function Cart() {
     
     const [cart,setCart]=useState([]);
+
       const [loader,setLoader]=useState(true);
       const [error,setError]=useState(null);  
       const [updating, setUpdating] = useState(false);
@@ -25,11 +26,10 @@ let x=0;
   setCart(data.products);
   setLoader(false);
   setError(null);
-  console.log(data);
-  x+=increase();
+ console.log(data.products);
   }
   catch(err){
-      setError("roor");
+      setError("Something is wrong");
       setLoader(false);
       }
   finally{
@@ -51,12 +51,11 @@ let x=0;
             }
         );
         // Update the state to reflect the changes
-        setCart(itemId);
+        getCart();
         setError(null);
         setLoader(false);
-        window.location.reload();
     } catch (err) {
-        setError(err.response.data.message);
+        setError("Error");
   setLoader(false);
 
     }
@@ -68,7 +67,6 @@ let x=0;
 
 const increaseQuantity = async (itemId) => {
        setLoader(true);
-
     
     try {
    
@@ -93,7 +91,7 @@ const increaseQuantity = async (itemId) => {
          // Option 1: Fetch the updated cart after increasing the quantity
         // Alternatively, you can use window.location.reload(); to refresh the entire page.
     } catch (err) {
-        setError("bnbn");
+        setError("somthing went wrong...");
         setLoader(false);
         setUpdating(false);
 
@@ -103,7 +101,9 @@ const increaseQuantity = async (itemId) => {
     }
   };
 
-  const decreaseQuantity = async (itemId) => {
+  const decreaseQuantity = async (itemId,i) => {
+    if(cart[i].quantity==1)return null;
+
     setLoader(true);
     try {
         const token = localStorage.getItem('userToken');
@@ -130,10 +130,6 @@ const increaseQuantity = async (itemId) => {
 
     }
 };
-
-const increase=()=>{
-return 5;
-}
   
       useEffect(()=>{
           getCart();
@@ -141,16 +137,22 @@ return 5;
   
   ,[])
 
-  
+  const calculateTotalPrice = () => {
+  return cart.reduce((total, item) => {
+    return total + item.details.finalPrice * item.quantity;
+  }, 0);
+};
+
     
   return (
 
 <section className=''>
+<Header title="Shoping Cart" />
+
     {loader?<Loader />:null}
 {error?<div className='vh-100 d-flex justify-content-center align-items-center'>{error}</div>:null}
-<Header title="Shoping Cart" />
 <div className='vh-100 container  d-flex flex-wrap'>
-{cart.length === 0 ? (
+{cart.length === 0 && !error? (
                     // Show this message if the cart is empty
                     <div className="text-center d-flex flex-column gap-3 align-items-center col-md-12">
                         <h3>Your cart is currently empty</h3>
@@ -163,28 +165,28 @@ return 5;
                     </div>
                 ) : null}
                 
-<div className="card mb-3 border-0 col-md-8">
-{cart.map( item =>
+<div className="card mb-3 border-0 col-md-6">
+{cart.map( (item,index) =>
+  <div key={index} className="row g-0  border-bottom">
  
-  <div className="row g-0 border-bottom">
-    <div className="col-md-4">
+    <div className="col-md-1">
       <img src={item.details.mainImage.secure_url} className="img-fluid rounded-start" alt="..." />
     </div>
-    <div className="col-md-8  ">
-      <div className="card-body d-flex flex-column gap-3">
-        <h5 className="card-title">{item.details.name}</h5>
-        <p className="card-text">{item.details.finalPrice}$</p>
-        <p className="card-text">Total:{parseInt(item.details.finalPrice, 10)*parseInt(item.quantity, 10)}$</p>
+    <div className="col-md-6">
+      <div className="card-body d-flex flex-column gap-3 bold">
+        <h6 className="card-title fonte">{item.details.name}</h6>
+        <p className="card-text ">{item.details.finalPrice}$</p>
+        <p className="card-text ">subPrice:{parseInt(item.details.finalPrice, 10)*parseInt(item.quantity, 10)}$</p>
         <section className=" d-flex flex-column align-items- justify-content-center ">
-      <div className="mb-3 font">Quantity</div>
+      <div className="mb-3 font">Quantity:</div>
       <div className=" bg-light d-flex justify-content-between cus ">
       <button className="btn  text-center btn-secondary-subtle border-0 "  onClick={() =>increaseQuantity(item.productId)}>+</button>
       <span className="text-dark pt-1 text-center ">{item.quantity}</span>
-      <button className="btn  btn-secondary-subtle border-0 text-center"  onClick={() => decreaseQuantity(item.productId)} >-</button>
+      <button className="btn  btn-secondary-subtle  border-0 text-center"  onClick={() => decreaseQuantity(item.productId,index)} >-</button>
       </div>
     </section>
         <button
-                                        className="btn btn-danger w-25"
+                                        className="btn btn-danger w-50"
                                         onClick={() => removeItem(item.productId)}
                                     >
                                         Remove Item
@@ -192,12 +194,14 @@ return 5;
 
       </div>
     </div>
+   
   </div>
       )}
    
 </div>
-{cart.length>=1?(<div className="col-md-4">
-        <Order />
+{cart.length>=1?(<div className="col-md-6">
+    <Order bla={calculateTotalPrice()} />
+
       </div>):null
       }
 
