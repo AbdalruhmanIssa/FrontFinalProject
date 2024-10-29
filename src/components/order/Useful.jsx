@@ -37,11 +37,7 @@ useEffect(()=>{
 
 ,[])
   return (
-    <div>
-    {mesh.map(product => 
-
-      <div></div>
-    )}
-    </div>
+  <div>
+  </div>
   )
 }
