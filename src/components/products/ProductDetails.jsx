@@ -8,9 +8,6 @@ import 'swiper/css';
 import 'swiper/css/controller';
 import 'swiper/css/scrollbar';
 import Header from '../header/Header';
-import InputRange from 'react-input-range';
-import 'react-input-range/lib/css/index.css';
-import './product.css'
 
 export default function ProductDetails() {
     const [products, setProducts] = useState([]);
@@ -19,15 +16,16 @@ export default function ProductDetails() {
     const [error, setError] = useState(null);
     const [mainSwiper, setMainSwiper] = useState(null);
     const [thumbSwiper, setThumbSwiper] = useState(null);
-    const [sortOption, setSortOption] = useState(""); // Sorting state
-    const [searchQuery, setSearchQuery] = useState(""); // Search state
-    const [priceRange, setPriceRange] = useState({ min: 0, max: 6000 }); // Price range state
+
+    const [priceRange, setPriceRange] = useState([0, 6000]);
+    const [sortOption, setSortOption] = useState(""); // New state for sorting
+    const [searchQuery, setSearchQuery] = useState(""); // New state for search query
 
     const getProduct = async () => {
         try {
             const { data } = await axios.get('https://ecommerce-node4.onrender.com/products?page=1&limit=10');
             setProducts(data.products);
-            setFilteredProducts(data.products); // Initially set filtered products as all products
+            setFilteredProducts(data.products);
             setLoader(false);
             setError(null);
         } catch (err) {
@@ -40,19 +38,19 @@ export default function ProductDetails() {
         getProduct();
     }, []);
 
-    // Filter and Sort products based on search, sorting option, and price range
+    // Filter products based on price range and search query
     useEffect(() => {
-        let filtered = products;
+        let filtered = products.filter(
+            item => item.finalPrice >= priceRange[0] && item.finalPrice <= priceRange[1]
+        );
 
-        // Filter by search query
         if (searchQuery) {
-            filtered = filtered.filter(item => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
+            filtered = filtered.filter(item => 
+                item.name.toLowerCase().includes(searchQuery.toLowerCase())
+            );
         }
 
-        // Filter by price range
-        filtered = filtered.filter(item => item.finalPrice >= priceRange.min && item.finalPrice <= priceRange.max);
-
-        // Sort based on selected option
+        // Apply sorting based on the selected sortOption
         if (sortOption === "priceHighLow") {
             filtered.sort((a, b) => b.finalPrice - a.finalPrice);
         } else if (sortOption === "priceLowHigh") {
@@ -64,7 +62,12 @@ export default function ProductDetails() {
         }
 
         setFilteredProducts(filtered);
-    }, [searchQuery, sortOption, priceRange, products]);
+    }, [priceRange, products, sortOption, searchQuery]);
+
+    const handlePriceChange = (e) => {
+        const value = Number(e.target.value);
+        setPriceRange([0, value]);
+    };
 
     const handleSortChange = (e) => {
         setSortOption(e.target.value);
@@ -72,10 +75,6 @@ export default function ProductDetails() {
 
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value);
-    };
-
-    const handlePriceChange = (value) => {
-        setPriceRange(value);
     };
 
     if (loader) {
@@ -87,39 +86,44 @@ export default function ProductDetails() {
             <Header title="Products" sec="Scroll right and left to showcase" />
             {error ? <div className="error">{error}</div> : null}
 
-            {/* Search, Sorting, and Price Filter Options */}
-            <div className="container my-4">
+            {/* Search Input */}
+            <div className="container my-4 ">
                 <input
                     type="text"
                     placeholder="Search by name"
                     value={searchQuery}
                     onChange={handleSearchChange}
-                    className="form-control mb-3 w-25 albert"
+                    className="form-control mb-3 w-25"
                 />
-                <select onChange={handleSortChange} className="form-select w-25 bg-secondary-subtle mb-3 albert">
+            </div>
+
+            {/* Price Filter */}
+            <div className="container my-4">
+                <label>Filter by Price: 0 - {priceRange[1]}$</label>
+                <input
+                    type="range"
+                    min="0"
+                    max="6000"
+                    step="10"
+                    value={priceRange[1]}
+                    onChange={handlePriceChange}
+                    className="form-range"
+                />
+            </div>
+
+            {/* Sorting Options */}
+            <div className="container my-4">
+                
+                <select onChange={handleSortChange} className="form-select w-25 bg-secondary-subtle">
                     <option value="">Featured</option>
                     <option value="priceHighLow">Price: High to Low</option>
                     <option value="priceLowHigh">Price: Low to High</option>
                     <option value="nameAZ">Name: A to Z</option>
                     <option value="nameZA">Name: Z to A</option>
                 </select>
-
-                {/* Price Range Filter */}
-                <div className="price-filter w-25 albert">
-                    <label>Price</label>
-                    <InputRange
-                        maxValue={6000}
-                        minValue={0}
-                        value={priceRange}
-                        onChange={handlePriceChange}
-                    />
-                    <div className="price-range-values">
-                        {priceRange.min}$ - {priceRange.max}$
-                    </div>
-                </div>
             </div>
 
-            <div className='container '>
+            <div className='container'>
                 <Swiper
                     modules={[Controller]}
                     spaceBetween={50}
@@ -129,9 +133,9 @@ export default function ProductDetails() {
                 >
                     {filteredProducts.map((item) => (
                         <SwiperSlide key={item._id}>
-                            <div className=" d-flex align-items-center justify-content-center gap-5 flex-wrap">
+                            <div className="h-100 d-flex align-items-center justify-content-center gap-5">
                                 <img src={item.mainImage.secure_url} alt={item.name} className="img-fluid" />
-                                <div className='albert col-md-8'>
+                                <div>
                                     <h5>{item.name}</h5>
                                     <p className='text-success fw-bold'>{item.finalPrice}$</p>
                                     <p className='text-secondary'>{item.description}</p>
@@ -155,9 +159,9 @@ export default function ProductDetails() {
                 >
                     {filteredProducts.map((item) => (
                         <SwiperSlide key={item._id}>
-                            <div className='d-flex flex-column align-items-center justify-content-center  mb-5 pro'>
+                            <div className='d-flex flex-column align-items-center justify-content-center mt-5 mb-5 pro'>
                                 <img src={item.mainImage.secure_url} alt={item.name} className="img-fluid w-50" />
-                                <h5 className=' albert'>{item.name.substring(0, 20)}</h5>
+                                <h5 className='h5'>{item.name.substring(0, 20)}</h5>
                             </div>
                         </SwiperSlide>
                     ))}

@@ -73,10 +73,8 @@ font-weight: 700px;
 height: 1100px;
 }
 /* Hide all labels in react-input-range */
-.input-range__label--value,
-.input-range__label {
-    display: none;
-}
+/* Custom range slider styling */
+
 .albert{
     font-family: "Albert Sans", sans-serif;
 
