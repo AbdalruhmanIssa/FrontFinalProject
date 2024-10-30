@@ -41,3 +41,13 @@
 a{
     cursor: pointer;
 }
+.dropdown:hover{
+  border-bottom-color: rgb(0, 0, 0);
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  transition: 0.1s;
+}
+.dropdown{
+  transform: scale(1.4);
+ transition: 0.2s;
+}

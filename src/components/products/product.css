@@ -69,3 +69,15 @@ font-weight: 700px;
         display: none;
     }
 }
+.height{
+height: 1100px;
+}
+/* Hide all labels in react-input-range */
+.input-range__label--value,
+.input-range__label {
+    display: none;
+}
+.albert{
+    font-family: "Albert Sans", sans-serif;
+
+}

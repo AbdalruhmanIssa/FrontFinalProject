@@ -1,0 +1,14 @@
+@import url('../../App.css');
+.proFont{
+    font-family: var(--mainfont);
+}
+.proFont h5{
+    color: blueviolet;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background-color: blueviolet;
+    color: beige;
+}
+.nav-link{
+    color: black;
+}

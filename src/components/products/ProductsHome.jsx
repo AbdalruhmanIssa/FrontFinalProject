@@ -42,8 +42,12 @@ return true;
 
 
   return (
+    
     <div className='text-center mt-5  pros'>
+      
     <h1>SALES!</h1>
+    {error?<div className='vh-100 d-flex justify-content-center align-items-center'>{error}</div>:null}
+
        <Swiper
     modules={[Navigation, Pagination, Scrollbar, A11y]}
     spaceBetween={-10}

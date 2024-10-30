@@ -36,23 +36,22 @@ export default function Navbar() {
           <Link className="nav-link "  aria-current="page"to={'/'}>Home</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link"to={'/categories'}>Category</Link>
+          <Link className="nav-link"to={'/category'}>Categoreis</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link"to={'/products'}>Products</Link>
+          <Link className="nav-link"to={'/pro'}>Products</Link>
         </li>
         <li className="nav-item">
           <Link className="nav-link"to={'/cart'}><i class="bi bi-bag"></i></Link>
         </li>
       <li classname="nav-item ">
-  <div className="dropdown mt-1">
+  <div className="dropdown  mt-1">
     <button className="btn border-0" type data-bs-toggle="dropdown" aria-expanded="false">
       <i className="bi bi-person" />
     </button>
     <ul className="dropdown-menu">
-      <li><a className="dropdown-item" onclick={handelLogout}>Logout</a></li>
-      <li><a className="dropdown-item" href="#">Another action</a></li>
-      <li><a className="dropdown-item" href="#">Something else here</a></li>
+      <li><a className="dropdown-item" onClick={handelLogout}>Logout</a></li>
+      <li><Link className="dropdown-item" to={'/profile'}>Profile</Link></li>
     </ul>
   </div>
 </li>

@@ -9,8 +9,8 @@ export default function Footer() {
 
   return (
     <footer className="footer bg-light text-dark py-5 ">
-      <div className="container">
-        <div className="row">
+      <div className="container ">
+        <div className="row ">
           
           {/* Contact Info Section */}
           <div className="col-md-3 mb-4">

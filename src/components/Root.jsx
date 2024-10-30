@@ -5,9 +5,9 @@ import { Outlet } from 'react-router-dom'
 
 export default function Root() {
   return (
-    <div>
+    <div className=''> 
       <Navbar />
-      <Outlet />
+      <Outlet /> 
       <Footer />
     </div>
   )

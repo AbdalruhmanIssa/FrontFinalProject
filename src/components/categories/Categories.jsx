@@ -10,6 +10,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import './categories.css'
+import Category from './Category';
 
 
 export default function Categories() {
@@ -43,6 +44,7 @@ finally{
 if(loader){
 return(<Loader />)
 }
+
   return (
 <div className='text-center mt-5 cat'>
   <h1>Shop by categories</h1>

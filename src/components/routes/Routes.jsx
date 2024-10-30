@@ -17,6 +17,11 @@ import Cart from "../Carts/Cart";
 import Order from "../order/Order";
 import Useful from "../order/Useful";
 import ProductsHome from "../products/ProductsHome";
+import Profile from "../Profile/Profile";
+import Address from "../Profile/Address";
+import Forget from "../Forget";
+import NewPassword from "../NewPassword";
+import Category from "../categories/Category";
 const router = createBrowserRouter([
     {
       path: "/",
@@ -29,11 +34,20 @@ const router = createBrowserRouter([
         },
         {
           path: "/login",
-          element: <Login />,
+          element:
+        
+          <Login />
+    
+
         },
         {
           path: "/register",
-          element: <Register />,
+          element: 
+       
+          <Register />
+          
+         
+          
         },
         {
           path: "/categories",
@@ -52,29 +66,34 @@ const router = createBrowserRouter([
             element:<Product />
           },
           {
-            path:"/counter",
-            element:<Counter />
-          },
-          {
-            path:"/choose",
-            element:<Choose />
-          },
-          {
             path:"/cart",
             element:
             <ProtectedRouter>            <Cart />
             </ProtectedRouter>
 
-          }, {
-            path:"/order",
-            element:<Order />
+          }, 
+          {
+            path:"/profile",
+            
+           element:
+           <ProtectedRouter>
+           <Profile />
+           </ProtectedRouter>
+
           },{
-            path:"/useful",
-           element:<Useful />
+            path:"/forgetpassword",
+            element:<Forget />
           },
           {
-            path:"/productshome",
-           element:<ProductsHome />
+            path:"/newpassword",
+            element:<NewPassword />
+          },
+          {
+            path:"/category",
+            element:<Category />
+          },{
+            path:"/pro",
+            element:<ProductDetails />
           },
       ],
     },

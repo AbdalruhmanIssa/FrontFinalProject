@@ -99,13 +99,13 @@ return(<Loader />)
 if(product.finalPrice==product.price){
   return (
     
-    <section className='vh-100'>
+    <section className='height'>
 {error?<div className='vh-100 d-flex justify-content-center align-items-center'>{error}</div>:null}
-      <header className='h-25'></header>
+      <header className='mt-5 mb-5 pt-5 pb-5'></header>
       <div className='container'>
         
-        <div className=' d-flex flex-wrap'>
-          <div className='col-md-6 d-flex  justify-content-center align-items-center flex-column gap-5 mt-5 pt-5 '>
+        <div className=' d-flex flex-wrap gap-5'>
+          <div className='col-md-5 flex-wrap d-flex  justify-content-start align-items-start  '>
           {productImges.map(img=> <img src={img.secure_url} className='bigger w-50 '/>)}
           </div>
           
@@ -130,13 +130,13 @@ if(product.finalPrice==product.price){
   )
 }
   return (
-    <section className='vh-100'>
+    <section className='height ' >
 {error?<div className='vh-100 d-flex justify-content-center align-items-center'>{error}</div>:null}
-      <header className='h-25'></header>
+      <header className='mt-5 mb-5 pt-5 pb-5'></header>
       <div className='container'>
         
-        <div className=' d-flex flex-wrap'>
-          <div className='col-md-6 d-flex  justify-content-center align-items-center flex-column gap-5 mt-5 pt-5 '>
+        <div className=' d-flex flex-wrap gap-5'>
+          <div className='col-md-5 flex-wrap d-flex  justify-content-start align-items-start '>
           {productImges.map(img=> <img src={img.secure_url} className='bigger w-50 '/>)}
           </div>
           

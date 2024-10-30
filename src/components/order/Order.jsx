@@ -6,7 +6,7 @@ import {  useState } from "react"
 import Loader from '../loader/Loader';
 import   './order.css'
 export default function Order({bla}) {
-    const [loader,setLoader]=useState(false);
+    const [loader,setLoader]=useState(true);
     const [error,setError]=useState(null);  
     const schema =yup.object({
         address: yup.string().required().min(5),
@@ -75,7 +75,7 @@ export default function Order({bla}) {
     <>
     {loader?<Loader />:null}
     {error?<div className='vh-100 d-flex justify-content-center align-items-center '>{error}</div>:null}
-        <form onSubmit={formik.handleSubmit} className="d-flex flex-column justify-content-start align-items-center gap-5 fonty text-center">
+        <form onSubmit={formik.handleSubmit} className="d-flex flex-column justify-content-start align-items-center  gap-5 fonty text-center">
   <h1 className="">Create Order</h1>
   <div className="mb-3 w-25">
     <label htmlFor="address" className="form-label ">Address</label>

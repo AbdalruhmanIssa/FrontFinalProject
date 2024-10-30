@@ -5,6 +5,7 @@ import Header from '../header/Header';
 import './cart.css'
 import { Link } from 'react-router-dom';
 import Order from '../order/Order';
+import Footer from '../footer/Footer';
 
 export default function Cart() {
     
@@ -151,7 +152,7 @@ const increaseQuantity = async (itemId) => {
 
     {loader?<Loader />:null}
 {error?<div className='vh-100 d-flex justify-content-center align-items-center'>{error}</div>:null}
-<div className='vh-100 container  d-flex flex-wrap'>
+<div className='vh-100 container    d-flex flex-wrap'>
 {cart.length === 0 && !error? (
                     // Show this message if the cart is empty
                     <div className="text-center d-flex flex-column gap-3 align-items-center col-md-12">
@@ -165,7 +166,7 @@ const increaseQuantity = async (itemId) => {
                     </div>
                 ) : null}
                 
-<div className="card mb-3 border-0 col-md-6">
+<div className="card mb-3  border-0 col-md-6">
 {cart.map( (item,index) =>
   <div key={index} className="row g-0  border-bottom">
  
