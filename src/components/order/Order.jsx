@@ -6,7 +6,7 @@ import {  useState } from "react"
 import Loader from '../loader/Loader';
 import   './order.css'
 export default function Order({bla}) {
-    const [loader,setLoader]=useState(true);
+    const [loader,setLoader]=useState(false);
     const [error,setError]=useState(null);  
     const schema =yup.object({
         address: yup.string().required().min(5),
