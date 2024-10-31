@@ -22,6 +22,8 @@ import Address from "../Profile/Address";
 import Forget from "../Forget";
 import NewPassword from "../NewPassword";
 import Category from "../categories/Category";
+import Reviews from "../reviews/Reviews";
+import ReProtectedRouter from "../../protectedrouter/ReProtectedRouter";
 const router = createBrowserRouter([
     {
       path: "/",
@@ -35,28 +37,20 @@ const router = createBrowserRouter([
         {
           path: "/login",
           element:
-        
+        <ReProtectedRouter>
           <Login />
-    
+          </ReProtectedRouter>
 
         },
         {
           path: "/register",
           element: 
-       
+          <ReProtectedRouter>
           <Register />
-          
+          </ReProtectedRouter>
          
           
         },
-        {
-          path: "/categories",
-          element: <Categories />,
-        },
-        {
-            path: "/products",
-            element: <Products />,
-          },
           {
             path:"/categorydetails/:categoryId",
             element:<CategoryDetails />
@@ -68,7 +62,8 @@ const router = createBrowserRouter([
           {
             path:"/cart",
             element:
-            <ProtectedRouter>            <Cart />
+            <ProtectedRouter>        
+                  <Cart />
             </ProtectedRouter>
 
           }, 
@@ -94,6 +89,10 @@ const router = createBrowserRouter([
           },{
             path:"/pro",
             element:<ProductDetails />
+          },
+          {
+            path:"/products/reviews/:productId",
+            element:<Reviews />
           },
       ],
     },

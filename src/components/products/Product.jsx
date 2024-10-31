@@ -1,64 +1,64 @@
 import Loader from '../loader/Loader';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import './product.css'
-import Counter from '../counter/Counter'
-import Choose from '../choose/Choose'
-import { toast,Slide } from 'react-toastify';
+import './product.css';
+import Counter from '../counter/Counter';
+import Choose from '../choose/Choose';
+import { toast, Slide } from 'react-toastify';
 
 export default function Product() {
-  const [product,setProduct]=useState({});
-  const [productImges,setProductImegs]=useState([]);
-    const [loader,setLoader]=useState(true);
-    const [error,setError]=useState(null);
-    const {productId}=useParams();
-const address=null;
-    const getProduct  = async ()=>{
-        try{
-const {data}=await axios.get(`https://ecommerce-node4.onrender.com/products/${productId}`);
-setProduct(data.product);
-setLoader(false);
-setError(null);
-console.log(data.product);
-setProductImegs(data.product.subImages);
-}
-catch(err){
-    setError("crab");
-    setLoader(false);
+  const [product, setProduct] = useState({});
+  const [productImages, setProductImages] = useState([]);
+  const [loader, setLoader] = useState(true);
+  const [error, setError] = useState(null);
+  const { productId } = useParams();
+
+  const getProduct = async () => {
+    try {
+      const { data } = await axios.get(`https://ecommerce-node4.onrender.com/products/${productId}`);
+      setProduct(data.product);
+      setProductImages(data.product.subImages || []);
+      setError(null);
+    } catch (error) {
+      setError("Error loading product data");
+    } finally {
+      setLoader(false);
     }
-finally{
-    setLoader(false);
-}
+  };
 
-}
+  useEffect(() => {
+    getProduct();
+  }, []);
 
-    useEffect(()=>{
-        getProduct();
-    }
-
-,[])
-const addToCart = async () => {
-  const token = localStorage.getItem('userToken'); // Retrieving token from localStorage
-  setLoader(true);
-  try {
-    const { data } = await axios.post(
-      'https://ecommerce-node4.onrender.com/cart/'
-      
-      , // API endpoint for adding to the cart
-      {
-        productId: productId, // Assuming productId is defined elsewhere in the code
-      },
-      {
-        headers: {
-          Authorization: `Tariq__${token}`, // Using the Bearer token for authorization
-        },
+  const addToCart = async () => {
+    const token = localStorage.getItem('userToken');
+    setLoader(true);
+    try {
+      const { data } = await axios.post(
+        'https://ecommerce-node4.onrender.com/cart/',
+        { productId },
+        {
+          headers: {
+            Authorization: `Tariq__${token}`,
+          },
+        }
+      );
+      if (data.message === 'success') {
+        toast.success('Added successfully!', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Slide,
+        });
       }
-
-    );
-    if(data.message=='success'){
-    setLoader(false);
-      toast.success('Added secssufully!', {
+    } catch (error) {
+      toast.error("You must log in or the item is already in your cart!", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -68,126 +68,104 @@ const addToCart = async () => {
         progress: undefined,
         theme: "colored",
         transition: Slide,
-        });
-    }
-    
-    console.log(data); // Logging the response from the server
-  } catch (error) {
-    setLoader(false);
-    toast.error("You Must Login or its already on ur cart !", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-      transition: Slide,
       });
-  
+    } finally {
+      setLoader(false);
+    }
+  };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const reviewsPerPage = 2;
+
+  const lastReviewIndex = currentPage * reviewsPerPage;
+  const firstReviewIndex = lastReviewIndex - reviewsPerPage;
+  const currentReviews = product.reviews ? product.reviews.slice(firstReviewIndex, lastReviewIndex) : [];
+  const totalPages = product.reviews ? Math.ceil(product.reviews.length / reviewsPerPage) : 0;
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  if (loader) {
+    return <Loader />;
   }
-};
 
-
-
-
-if(loader){
-return(<Loader />)
-}
-
-if(product.finalPrice==product.price){
   return (
-    
-    <section className='height'>
-{error?<div className='vh-100 d-flex justify-content-center align-items-center'>{error}</div>:null}
-      <header className='mt-5 mb-5 pt-5 pb-5'></header>
-      <div className='container'>
-        
-        <div className=' d-flex flex-wrap gap-5'>
-          <div className='col-md-5 flex-wrap d-flex  justify-content-start align-items-start  '>
-          {productImges.map(img=> <img src={img.secure_url} className='bigger w-50 '/>)}
+    <section className="">
+      {error && <div className=" d-flex justify-content-center align-items-center">{error}</div>}
+
+      <header className="mt-5 mb-5 pt-5 pb-5"></header>
+      <div className="container">
+        <div className="d-flex flex-wrap gap-5">
+          <div className="col-md-5 flex-wrap d-flex justify-content-start align-items-start">
+            {productImages.map((img, idx) => (
+              <img key={idx} src={img.secure_url} className="bigger w-50" alt="Product" />
+            ))}
           </div>
-          
-            <div className='col-md-6 d-flex justify-content-start align-items-center gap-5 text-center flex-column'>
-          
-          <h3 className="real ">{product.name}</h3>
-          <p className=" text-secondary">{product.description.substring(0,40)}...</p>
-         <div className="price d-flex justify-content-center a gap-5 ">
-          <h5  className=" real text-success text-center">{product.finalPrice}$</h5>
-         
+
+          <div className="col-md-6 d-flex justify-content-start align-items-center gap-5 text-center flex-column">
+            <h3 className="real">{product.name}</h3>
+            <p className="text-secondary">
+              {product.description ? product.description.substring(0, 40) : "No description available"}...
+            </p>
+            <div className="price d-flex justify-content-center gap-5">
+              {product.finalPrice === product.price ? (
+                <h5 className="real text-success text-center">{product.finalPrice}$</h5>
+              ) : (
+                <>
+                  <p className="text-body-secondary text-decoration-line-through">{product.price}$</p>
+                  <h5 className="real text-success text-center">{product.finalPrice}$</h5>
+                  <h5 className="dis">{product.discount}% off</h5>
+                </>
+              )}
             </div>
             <Choose />
-    <Counter />
-    <button className="btn btn-primary " onClick={addToCart}>Add to Cart</button>
-
-
-      
+            <button className="btn btn-primary" onClick={addToCart}>Add to Cart</button>
           </div>
         </div>
+      </div>
+
+      {/* Reviews Section */}
+      <div className="container my-4 d-flex flex-column justify-content-center align-items-center">
+        <h3 className="text-center mb-4 pros">Customer Reviews</h3>
+
+        {product.reviews && product.reviews.length > 0 ? (
+          <>
+            {currentReviews.map((review, index) => (
+              <div key={index} className="card mb-3 w-50">
+                <div className="card-body">
+                  <div className="text-warning mb-2">
+                    {Array.from({ length: review.rating }, (_, i) => (
+                      <span key={i}><i className="bi bi-star-fill"></i></span>
+                    ))}
+                  </div>
+                  <h5 className="card-title mb-4">{review.comment}</h5>
+                  <footer className="blockquote-footer">
+                    <cite>{review.createdBy.userName}</cite>
+                  </footer>
+                </div>
+              </div>
+            ))}
+
+            {/* Pagination */}
+            <nav>
+              <ul className="pagination justify-content-center">
+                <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                  <button className="page-link" onClick={() => paginate(currentPage - 1)}>&laquo;</button>
+                </li>
+                {Array.from({ length: totalPages }, (_, i) => (
+                  <li key={i} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
+                    <button className="page-link" onClick={() => paginate(i + 1)}>{i + 1}</button>
+                  </li>
+                ))}
+                <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                  <button className="page-link" onClick={() => paginate(currentPage + 1)}>&raquo;</button>
+                </li>
+              </ul>
+            </nav>
+          </>
+        ) : (
+          <div className="text-center">No reviews for this product.</div>
+        )}
       </div>
     </section>
-  )
+  );
 }
-  return (
-    <section className='height ' >
-{error?<div className='vh-100 d-flex justify-content-center align-items-center'>{error}</div>:null}
-      <header className='mt-5 mb-5 pt-5 pb-5'></header>
-      <div className='container'>
-        
-        <div className=' d-flex flex-wrap gap-5'>
-          <div className='col-md-5 flex-wrap d-flex  justify-content-start align-items-start '>
-          {productImges.map(img=> <img src={img.secure_url} className='bigger w-50 '/>)}
-          </div>
-          
-            <div className='col-md-6 d-flex justify-content-start align-items-center gap-5 text-center flex-column'>
-          
-          <h3 className="real ">{product.name}</h3>
-          <p className=" text-secondary">{product.description.substring(0,40)}...</p>
-         <div className="price d-flex justify-content-center a gap-5 ">
-          <p  className=" text-body-secondary text-decoration-line-through">{product.price}$</p>
-          <h5  className=" real text-success text-center">{product.finalPrice}$</h5>
-          <h5  className="dis">{product.discount}% off</h5>
-            </div>
-            <Choose />
-    <button className="btn btn-primary " onClick={addToCart}>Add to Cart</button>
-
-      
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-/*
-<section className='vh-100 pt-5 mt-5 sec'>
-  <div className="card h-100 border-0  container d-flex justify-content-center align-items-center gap-5" style={{maxWidth: 540}}>
-    <div className="row g-0">
-      
-      <div className=" text-center">
-        <div className="card-body">
-          <h5 className="card-title ">{product.name}</h5>
-          <p className="card-text text-secondary">{product.description.substring(0,40)}...</p>
-         <div className="price d-flex justify-content-center gap-5 ">
-          <p  className="card-text text-body-secondary text-decoration-line-through">{product.price}$</p>
-          <h5  className="card-text real text-danger ">{product.finalPrice}$</h5>
-          <h5  className="card-text   dis">{product.discount}% off</h5>
-
-          </div>
-        </div>
-        <div className="d-flex d-flex justify-content-center align-items-center gap-5">
-    {productImges.map(img=> <img src={img.secure_url} className='w-50 bigger'/>)}
-      </div>
-      <div className='d-flex flex-column gap-5 align-items-center mt-3'>
-        <Choose />
-    <Counter />
-    <a className="btn btn-primary w-25">Add to Cart</a>
-
-      </div>
-
-      </div>
-    </div>
-  </div>
-  </section>
-
-*/

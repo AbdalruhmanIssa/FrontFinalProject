@@ -21,7 +21,7 @@ setError(null);
 console.log(data.products);
 }
 catch(err){
-    setError("nan");
+    setError("somthing went wrong...");
     setLoader(false);
     }
 finally{
@@ -44,9 +44,9 @@ return(<Loader />)
 return (
 <div>
 
-{error?<div className='vh-100 d-flex justify-content-center align-items-center'>{error}</div>:null}
 
     <Header title="Category's Products" />
+    {error?<div className='vh-100 d-flex justify-content-center align-items-center'>{error}</div>:null}
     
     <section className='products container '>
            <div className="row  ">

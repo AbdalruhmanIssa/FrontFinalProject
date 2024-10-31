@@ -26,7 +26,7 @@ export default function () {
     <h1>Out Of 
       Office</h1>
     <p>collections</p>
-    <Link to={'/category'}>
+    <Link to={'/pro'}>
     <button type="button" class="btn btn-light btn-lg link">shop now</button>
     
     </Link>
@@ -38,7 +38,7 @@ export default function () {
   <div className="carousel-box text-light">
     <h1>Sale</h1>
     <p>End of The Season Sale</p>
-    <Link to={'/categories'}>
+    <Link to={'/pro'}>
     <button type="button" class="btn btn-light btn-lg link">shop now</button>
     
     </Link>

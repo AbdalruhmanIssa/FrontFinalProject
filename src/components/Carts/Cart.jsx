@@ -151,7 +151,7 @@ const increaseQuantity = async (itemId) => {
 <Header title="Shoping Cart" />
 
     {loader?<Loader />:null}
-    {cart.length === 0  ? (
+    {cart.length === 0 && !error  ? (
                     // Show this message if the cart is empty
                     <div className="text-center d-flex flex-column gap-3 align-items-center col-md-12">
                         <h3>Your cart is currently empty</h3>
@@ -165,7 +165,7 @@ const increaseQuantity = async (itemId) => {
                 ) : null}
                 
 {error?<div className='vh-100 d-flex justify-content-center align-items-center'>{error}</div>:null}
-<div className='vh-100 container    d-flex flex-wrap'>
+<div className=' container    d-flex flex-wrap'>
 
 <div className="card mb-3  border-0 col-md-6">
 {cart.map( (item,index) =>

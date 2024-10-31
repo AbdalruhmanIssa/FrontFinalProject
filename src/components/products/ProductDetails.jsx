@@ -93,7 +93,7 @@ export default function ProductDetails() {
                     placeholder="Search by name"
                     value={searchQuery}
                     onChange={handleSearchChange}
-                    className="form-control mb-3 w-25"
+                    className="form-control mb-3 w-50"
                 />
             </div>
 
@@ -133,12 +133,12 @@ export default function ProductDetails() {
                 >
                     {filteredProducts.map((item) => (
                         <SwiperSlide key={item._id}>
-                            <div className="h-100 d-flex align-items-center justify-content-center gap-5">
+                            <div className="h-100  det d-flex align-items-center justify-content-center gap-5">
                                 <img src={item.mainImage.secure_url} alt={item.name} className="img-fluid" />
                                 <div>
                                     <h5>{item.name}</h5>
                                     <p className='text-success fw-bold'>{item.finalPrice}$</p>
-                                    <p className='text-secondary'>{item.description}</p>
+                                    <p className='text-secondary '>{item.description}</p>
                                     <Link key={item._id} to={`/product/${item._id}`} className='btn btn-primary'>
                                         Details
                                     </Link>
