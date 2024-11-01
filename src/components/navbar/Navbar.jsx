@@ -44,9 +44,9 @@ export default function Navbar() {
         <li className="nav-item">
           <Link className="nav-link"to={'/cart'}><i class="bi bi-bag"></i></Link>
         </li>
-      <li classname="nav-item ">
-  <div className="dropdown  mt-1">
-    <button className="btn border-0" type data-bs-toggle="dropdown" aria-expanded="false">
+        <li className="nav-item d-flex align-items-center">
+  <div className="dropdown">
+    <button className="btn border-0 profile-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
       <i className="bi bi-person" />
     </button>
     <ul className="dropdown-menu">
@@ -55,6 +55,8 @@ export default function Navbar() {
     </ul>
   </div>
 </li>
+
+
 
         
         </>
@@ -73,14 +75,14 @@ export default function Navbar() {
         <li className="nav-item">
           <Link className="nav-link"to={'/pro'}>Products</Link>
         </li>
-        <li classname="nav-item ">
-  <div className="dropdown mt-1 ">
-    <button className="btn border-0" type data-bs-toggle="dropdown" aria-expanded="false">
-      <i className="bi bi-person " />
+        <li className="nav-item d-flex align-items-center">
+  <div className="dropdown">
+    <button className="btn border-0 profile-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <i className="bi bi-person" />
     </button>
     <ul className="dropdown-menu">
       <li><Link className="dropdown-item" to={'/register'}>Register</Link></li>
-      <li><Link className="dropdown-item"  to={'/login'}>Login</Link></li>
+      <li><Link className="dropdown-item" to={'/login'}>Login</Link></li>
     </ul>
   </div>
 </li>
