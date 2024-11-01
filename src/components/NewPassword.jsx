@@ -95,7 +95,7 @@ export default function NewPassword() {
     {formik.touched.password && formik.errors.password ? <div className="alert alert-danger">{formik.errors.password}</div>:null}
   </div>
   <div className="mb-3 w-25">
-    <label htmlFor="code" className="form-label">Password</label>
+    <label htmlFor="code" className="form-label">The Code</label>
     <input type="text" className="form-control" id="code" placeholder="" 
      onChange={formik.handleChange}
      name="code"

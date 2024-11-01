@@ -30,6 +30,8 @@ const schema =yup.object({
     }
     );
    async function LoginUser(){
+  setLoader(true);
+
     try{
 const {data} =await axios.post(`https://ecommerce-node4.onrender.com/auth/signin`,formik.values);
 console.log(data);
@@ -55,6 +57,7 @@ if(data.message=='success'){
 }}
 
 catch(error){
+  setLoader(false);
  
   toast.error("something is wrong", {
     position: "top-right",

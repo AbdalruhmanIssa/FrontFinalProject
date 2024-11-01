@@ -5,7 +5,7 @@ import Header from '../header/Header';
 import './cart.css'
 import { Link } from 'react-router-dom';
 import Order from '../order/Order';
-import Footer from '../footer/Footer';
+import { toast,Slide } from 'react-toastify';
 
 export default function Cart() {
     
@@ -13,7 +13,7 @@ export default function Cart() {
 
       const [loader,setLoader]=useState(true);
       const [error,setError]=useState(null);  
-      const [updating, setUpdating] = useState(false);
+  
 let x=0;
       const getCart  = async ()=>{
 
@@ -55,15 +55,85 @@ let x=0;
         getCart();
         setError(null);
         setLoader(false);
+      
+            toast.success('Item removed!', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              transition: Slide,
+              });
+         
+          
     } catch (err) {
-        setError("Error");
+        
   setLoader(false);
-
+  toast.error("something is wrong", {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+    transition: Slide,
+    });
     }
     finally{
         setLoader(false);
     }
 };
+const clearCart = async () => {
+    setLoader(true);
+    try {
+        const token = localStorage.getItem('userToken');
+        await axios.patch(
+            `https://ecommerce-node4.onrender.com/cart/clear`,
+            {}, // Empty body, since we're only sending headers
+            {
+                headers: {
+                    Authorization: `Tariq__${token}`, // Authorization token
+                },
+            }
+        );
+        // Update the state to reflect the changes
+        getCart();
+        setError(null);
+            toast.success('Cart Cleared!', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              transition: Slide,
+              });
+           
+          
+    } catch (error) {
+        toast.error("something is wrong", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Slide,
+            });
+    } finally {
+        setLoader(false);
+    }
+};
+
 
 
 const increaseQuantity = async (itemId) => {
@@ -72,7 +142,7 @@ const increaseQuantity = async (itemId) => {
     try {
    
 
-        setUpdating(true); 
+      
         
         const token = localStorage.getItem('userToken');
         await axios.patch(
@@ -91,11 +161,34 @@ const increaseQuantity = async (itemId) => {
         getCart(); 
          // Option 1: Fetch the updated cart after increasing the quantity
         // Alternatively, you can use window.location.reload(); to refresh the entire page.
-    } catch (err) {
-        setError("somthing went wrong...");
+  
+            toast.success('Increased!', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              transition: Slide,
+              });
+           
+          
+    } catch (error) {
+      
         setLoader(false);
-        setUpdating(false);
-
+        toast.error("something is wrong", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Slide,
+            });
     }
     finally{
         setLoader(false);
@@ -121,10 +214,33 @@ const increaseQuantity = async (itemId) => {
         getCart();  // Option 1: Fetch the updated cart after decreasing the quantity
         setError(null);
         setLoader(false);
-    } catch (err) {
-        setError("error has accured");
+        
+            toast.success('decresed!', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              transition: Slide,
+              });
+           
+         
+    } catch (error) {
         setLoader(false);
-
+        toast.error("something is wrong", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Slide,
+            });
     }
     finally{
         setLoader(false);
@@ -162,9 +278,19 @@ const increaseQuantity = async (itemId) => {
                             Go Back to Shop
                         </Link>
                     </div>
-                ) : null}
+                ) : <div className='container mb-5'>
+                <button
+                                                        
+                                                        onClick={() => clearCart()}
+                                                   className='text-center bg-white border-0 text-secondary text-decoration-underline'
+                                                   >
+                
+                                                        Claer Cart x
+                                                    </button>
+                                                    </div>}
                 
 {error?<div className='vh-100 d-flex justify-content-center align-items-center'>{error}</div>:null}
+
 <div className=' container    d-flex flex-wrap'>
 
 <div className="card mb-3  border-0 col-md-6">

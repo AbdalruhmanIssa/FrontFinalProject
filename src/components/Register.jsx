@@ -1,8 +1,11 @@
 import axios from "axios";
 import { useFormik } from "formik"
 import * as yup from 'yup'
+import Loader from "./loader/Loader";
 
 export default function Register() {
+const [loader,setLoader]=useState(false);
+
   const schema =yup.object({
     userName: yup.string().min(5).max(10).required(),
     email: yup.string().required().min(10).email(),
@@ -20,11 +23,53 @@ export default function Register() {
 
     );
    async function  RegisterUser(){
+    setLoader(true);
+    try{
 const {data} =await axios.post(`https://ecommerce-node4.onrender.com/auth/signup`,formik.values);
 console.log(data);
+if(data.message=='success'){
+  setLoader(false);
+  localStorage.setItem("userToken",data.token);
+  const decoded = jwtDecode(data.token);
+  setUserData(decoded);
+  setIsLogin(true);
+  toast.success('Please Cheack Your Email for confomation!', {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+    transition: Slide,
+    });
+}}
+
+catch(error){
+  setLoader(false);
+ 
+  toast.error("something is wrong", {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+    transition: Slide,
+    });
+}
+finally{
+  setLoader(false);
+
+}
     }
-    console.log(formik);
+  
   return (
+    <>
+    {loader?<Loader />:null}
   <form onSubmit={formik.handleSubmit} className="d-flex flex-column justify-content-center align-items-center vh-100">
     <h1>Register</h1>
   <div className="mb-3 mt-4 w-25">
@@ -55,6 +100,6 @@ console.log(data);
   </div>
   <button type="submit" className="btn btn-warning" >Register</button>
 </form>
-
+</>
   )
 }

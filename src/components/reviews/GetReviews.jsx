@@ -11,11 +11,11 @@ export default function GetReviews() {
     const getReview  = async ()=>{
         try{
 const {data}=await axios.get(`https://ecommerce-node4.onrender.com/products/${productId}/review`,
-    {
-        headers: {
-            Authorization: `Tariq__${token}`, // Using the Bearer token for authorization
-          }
-    }
+     {
+            headers: {
+                Authorization: `Tariq__${token}`, // Using the Bearer token for authorization
+              }
+        }
 );
 setLoader(false);
 setError(null);

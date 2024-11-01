@@ -14,8 +14,10 @@ export default function Order({bla}) {
       });
     const formik = useFormik({
         initialValues:{
-            address:'',
-            phone:''
+          couponName:'',  
+          address:'',
+            phone:'',
+           
         },
         onSubmit:OrderPlace,
       validationSchema:schema
@@ -52,7 +54,7 @@ export default function Order({bla}) {
     }}
     
     catch(error){
-      toast.error("something is wrong", {
+      toast.error("something is wrong with order", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -77,6 +79,15 @@ export default function Order({bla}) {
     {error?<div className='vh-100 d-flex justify-content-center align-items-center '>{error}</div>:null}
         <form onSubmit={formik.handleSubmit} className="d-flex flex-column justify-content-start align-items-center  gap-5 fonty text-center">
   <h1 className="">Create Order</h1>
+  <div className="mb-3 w-25">
+    <label htmlFor="couponName" className="form-label">Coupon Name</label>
+    <input type="text" className="form-control" id="couponName" placeholder="" 
+     onChange={formik.handleChange}
+     name="couponName"
+     value={formik.couponName}
+     onBlur={formik.handleBlur}/>
+    {formik.touched.couponName && formik.errors.couponName ? <div className="alert alert-danger">{formik.errors.couponName}</div>:null}
+  </div>
   <div className="mb-3 w-25">
     <label htmlFor="address" className="form-label ">Address</label>
 

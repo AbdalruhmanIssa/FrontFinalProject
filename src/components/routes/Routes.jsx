@@ -24,6 +24,8 @@ import NewPassword from "../NewPassword";
 import Category from "../categories/Category";
 import Reviews from "../reviews/Reviews";
 import ReProtectedRouter from "../../protectedrouter/ReProtectedRouter";
+
+import Noth from "../Noth";
 const router = createBrowserRouter([
     {
       path: "/",
@@ -93,6 +95,9 @@ const router = createBrowserRouter([
           {
             path:"/products/reviews/:productId",
             element:<Reviews />
+          },{
+            path:"/noth",
+            element:<Noth />
           },
       ],
     },

@@ -5,3 +5,10 @@
 a{
     text-decoration: none;
 }
+.nothing-here{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  height: 100vh;
+  }
