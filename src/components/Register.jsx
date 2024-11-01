@@ -2,6 +2,7 @@ import axios from "axios";
 import { useFormik } from "formik"
 import * as yup from 'yup'
 import Loader from "./loader/Loader";
+import { useState } from 'react'
 
 export default function Register() {
 const [loader,setLoader]=useState(false);
