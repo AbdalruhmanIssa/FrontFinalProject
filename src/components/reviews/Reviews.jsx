@@ -42,7 +42,7 @@ export default function Reviews() {
     setLoader(false);
     setError(null);
     if(data.message=='success'){
-      toast.success('Order Successed!', {
+      toast.success('Review Sent!', {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
